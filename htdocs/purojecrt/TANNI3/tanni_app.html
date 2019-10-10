@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>単位計算サービス</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700">
+    <link rel="stylesheet" href="M_stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+    function g_count(type,grade){
+      var count=0;
+      for (var i = 0; i < M_class.length; i++) {
+        if(type!=3 && M_class[i].type == type && M_class[i].grade == (grade+1)%5){
+          count++;
+        }
+        if (type==2 && M_class[i].type == type+1 && M_class[i].grade == (grade+1)%5) {
+          count++;
+        }
+      }
+      if(type==2){
+        return count+1;
+      }else{
+        return count+1;
+      }
+    }
+
+
+
+    function Mf_class(g_name, g_credit, g_type, g_grade, g_list)
+    {
+      this.name = g_name;     //講義名
+      this.credit = g_credit; //単位数
+      this.type = g_type      //授業区分
+      this.grade = g_grade;   //学年
+      this.list = g_list;
+    }
+
+    var M_class = [ //講義ごとの情報を入力
+    new Mf_class("情報社会及び情報倫理",2,0,1,-1),
+    new Mf_class("日本語リテラシ",2,0,1,-1),
+    new Mf_class("キャリアデザインI",2,0,1,-1),
+    new Mf_class("キャリアデザインII",1,0,3,-1),
+    new Mf_class("経済基礎知識",2,0,3,-1),
+    new Mf_class("知的財産権",2,0,3,-1),
+    new Mf_class("情報と職業",2,0,3,-1),
+    new Mf_class("インターンシップ",2,1,0,-1),
+    new Mf_class("基礎数学及び演習",3,1,1,-1),
+    new Mf_class("微分積分I",2,1,1,-1),
+    new Mf_class("微分積分II",2,1,2,-1),
+    new Mf_class("線形代数I",2,1,1,-1),
+    new Mf_class("線形代数II",2,1,1,-1),
+    new Mf_class("確率統計",2,1,2,-1),
+    new Mf_class("幾何学",2,1,2,-1),
+    new Mf_class("物理学(力学)",2,1,1,-1),
+    new Mf_class("物理学(電磁気学)",2,1,2,-1),
+    new Mf_class("物理実験",2,1,2,-1),
+    new Mf_class("情報数学I",2,1,1,-1),
+    new Mf_class("情報数学II",2,1,1,-1),
+    new Mf_class("コンピュータ概論",2,1,1,-1),
+    new Mf_class("人工知能",2,1,2,-1),
+    new Mf_class("オペレーティングシステム",2,1,2,-1),
+    new Mf_class("データベース及び演習",3,1,3,-1),
+    new Mf_class("情報システム概論",2,1,1,-1),
+    new Mf_class("CAD及び演習I",3,1,3,-1),
+    new Mf_class("CGプログラミング及び演習",3,1,3,-1),
+    new Mf_class("コンピュータリテラシ",2,1,1,-1),
+    new Mf_class("プログラミング及び演習I",3,1,1,-1),
+    new Mf_class("プログラミング及び演習II",3,1,1,-1),
+    new Mf_class("アルゴリズムとデータ構造",2,1,3,-1),
+    new Mf_class("アルゴリズムとデータ構造演習",1,1,3,-1),
+    new Mf_class("コンピュータネットワーク",2,1,2,-1),
+    new Mf_class("モバイルネットワーク",2,1,2,-1),
+    new Mf_class("ネットワーク及び演習",3,1,3,-1),
+    new Mf_class("情報セキュリティ",2,1,3,-1),
+    new Mf_class("WEBプログラミング及び演習",3,1,3,-1),
+    new Mf_class("論理回路",2,1,1,-1),
+    new Mf_class("数値計算",2,1,2,-1),
+    new Mf_class("オペレーションズ・リサーチI",2,1,3,-1),
+    new Mf_class("オペレーションズ・リサーチII",2,1,3,-1),
+    new Mf_class("数理論理学",2,1,2,-1),
+    new Mf_class("言語理論及びコンパイラ",2,1,3,-1),
+    new Mf_class("計算の理論",2,1,3,-1),
+    new Mf_class("並列分散処理",2,1,3,-1),
+    new Mf_class("ソフトコンピューティング",2,1,3,-1),
+    new Mf_class("オブジェクト指向プログラミング及び演習I",3,1,2,-1),
+    new Mf_class("オブジェクト指向プログラミング及び演習II",3,1,2,-1),
+    new Mf_class("ソフトウェア工学I",2,1,3,-1),
+    new Mf_class("ソフトウェア工学II",2,1,3,-1),
+    new Mf_class("Webプログラミング基礎",2,1,1,-1),
+    new Mf_class("コンピュータアーキテクチャI",2,1,2,-1),
+    new Mf_class("コンピュータアーキテクチャII",2,1,2,-1),
+    new Mf_class("組み込みシステム概論",2,1,3,-1),
+    new Mf_class("組み込みプログラミング及び演習",3,1,3,-1),
+    new Mf_class("マイコン制御及び演習",3,1,3,-1),
+    new Mf_class("プロジェクト演習I",1,1,2,-1),
+    new Mf_class("プロジェクト演習II",1,1,2,-1),
+    new Mf_class("画像処理及び演習",3,1,2,-1),
+    new Mf_class("セミナー",2,1,3,-1),
+    new Mf_class("特別講義I",2,1,0,-1),
+    new Mf_class("特別講義II",2,1,0,-1),
+    new Mf_class("卒業研究",4,1,4,-1),
+    new Mf_class("高大連携特別講義A",2,1,0,-1),
+    new Mf_class("高大連携特別講義B",2,1,0,-1),
+    new Mf_class("高大連携特別講義C",1,1,0,-1),
+    new Mf_class("英会話A",1,2,1,-1),
+    new Mf_class("英会話B",1,2,1,-1),
+    new Mf_class("英語A:基礎・科学英語I",1,2,1,-1),
+    new Mf_class("英語B:基礎・科学英語II",1,2,1,-1),
+    new Mf_class("英語C:TOEIC・視聴覚英語I",1,2,2,-1),
+    new Mf_class("英語D:TOEIC・視聴覚英語II",1,2,2,-1),
+    new Mf_class("英語E:現代比較文化英語I",1,2,2,-1),
+    new Mf_class("英語F:現代比較文化英語II",1,2,2,-1),
+    new Mf_class("英語ワークショップA:プレゼンテーション",1,2,0,-1),
+    new Mf_class("英語ワークショップB:リーディング",1,2,0,-1),
+    new Mf_class("英語ワークショップC:TOEIC演習",1,2,0,-1),
+    new Mf_class("英語ワークショップD:海外留学英語",1,2,0,-1),
+    new Mf_class("中国語IA",1,3,1,-1),
+    new Mf_class("中国語IB",1,3,1,-1),
+    new Mf_class("フランス語IA",1,3,1,-1),
+    new Mf_class("フランス語IB",1,3,1,-1),
+    new Mf_class("ドイツ語IA",1,3,1,-1),
+    new Mf_class("ドイツ語IB",1,3,1,-1),
+    new Mf_class("人間性の探究",2,4,0,-1),
+    new Mf_class("こころの科学",2,4,0,-1),
+    new Mf_class("人間の行動",2,4,0,-1),
+    new Mf_class("科学技術と自然と人間",2,4,0,-1),
+    new Mf_class("表現文化",2,4,0,-1),
+    new Mf_class("現代社会の探究",2,4,0,-1),
+    new Mf_class("現代の経済",2,4,0,-1),
+    new Mf_class("現代社会と法",2,4,0,-1),
+    new Mf_class("日本国憲法",2,4,0,-1),
+    new Mf_class("健康の科学",2,4,0,-1),
+    new Mf_class("ものづくり文化",2,4,0,-1),
+    new Mf_class("環境と地域共創",2,4,0,-1),
+    new Mf_class("創造と倫理",2,4,0,-1),
+    new Mf_class("ものづくり文化実習",1,4,1,-1),
+    new Mf_class("健康・スポーツ科学実習I",1,4,1,-1),
+    new Mf_class("健康・スポーツ科学実習II",1,4,1,-1),
+    new Mf_class("中国語IIA",1,4,2,-1),
+    new Mf_class("中国語IIB",1,4,2,-1),
+    new Mf_class("フランス語IIA",1,4,2,-1),
+    new Mf_class("フランス語IIB",1,4,2,-1),
+    new Mf_class("ドイツ語IIA",1,4,2,-1),
+    new Mf_class("ドイツ語IIB",1,4,2,-1),
+    new Mf_class("特別講義",2,4,0,-1),
+    new Mf_class("日本語コミュニケーション",2,4,0,-1),
+    new Mf_class("海外研修英語",2,4,0,-1)
+    ];
+
+    var M_type = [
+      "　　　 共通教育科目 　　　",
+      "　　　 専門教育科目 　　　",
+      "総合Aのうち､英語系の科目　",
+      "　　　　　総合 A　　　　　",
+      "　　　　　総合 B　　　　　",
+      "合計",
+    ];
+
+    var M_grade = [
+      "全学年",
+      "一年",
+      "二年",
+      "三年",
+      "四年"
+    ]
+
+    var G_id = [
+      "PutGrade0",
+      "PutGrade1",
+      "PutGrade2",
+      "PutGrade3",
+      "PutGrade4"
+    ]
+
+    var S_grade0 = [0,0,0,0,0,0];
+    var S_grade1 = [0,0,0,0,0,0];
+    var S_grade2 = [0,0,0,0,0,0];
+    var S_grade3 = [0,0,0,0,0,0];
+    var S_grade4 = [0,0,0,0,0,0];
+    var CS_name = [S_grade0,S_grade1,S_grade2,S_grade3,S_grade4];
+
+    var t, g, i;
+    var F_cbox = new Array(M_type.length);
+    for(t = 0; t < M_type.length; t++) {
+      F_cbox[t] = new Array(M_grade.length);
+      for(g = 0; g < M_grade.length; g++) {
+        F_cbox[t][g] = Array(25);
+        for (i = 0; i < 25; i++) {
+          F_cbox[t][g][i] = -1;
+        }
+      }
+    }
+
+    function M_output(){
+      var M_count=[0,0,0,0,0,0,0];
+      var G_count=[10,94,6,8,12,124,0];
+
+      for (var j=0; j<=4; j++) {
+        for (var i=0; i<M_class.length; i++) {
+          if(M_class[i].type-j == 0 && document.myform.elements[M_class[i].list].checked == true){
+            M_count[j] += M_class[i].credit;
+          }
+        }
+      }
+      for (j=0;j<=4;j++) {
+        if (j==3) {
+          M_count[j]+=M_count[j-1];
+        }
+        if (G_count[j] <= M_count[j]) {
+          var M_elm = document.getElementById("M_data"+j);
+          M_elm.innerHTML=M_type[j]+"…"+M_count[j]+"単位　　　　　　　　　";
+        } else {
+          var no = G_count[j] - M_count[j];
+          var M_elm = document.getElementById("M_data"+j);
+          M_elm.innerHTML=M_type[j]+"…"+M_count[j]+"単位 (卒業まであと"+no+"単位)";
+        }
+
+      }
+      var total = M_count[0]+M_count[1]+M_count[3]+M_count[4];
+      var M_elm = document.getElementById("M_data5");
+      M_elm.innerHTML=M_type[5]+"…"+total+"単位";
+
+      var M_elm = document.getElementById("M_data6");
+      if (total >= 24) {
+        if (total < 48) {
+          var no = 48 - total;
+          M_elm.innerHTML="(二年次へ進級可能､三年次進級まであと"+no+"単位)";
+        }  else if (total < 96) {
+          var no = 96 - total;
+          M_elm.innerHTML="(三年次へ進級可能､四年次進級まであと"+no+"単位)";
+        }  else {
+          var no = 124 - total;
+          M_elm.innerHTML="(四年次へ進級可能)";
+          if (total >= 124 && G_count[0] <= M_count[0] && G_count[1] <= M_count[1] && G_count[2] <= M_count[2] && G_count[3] <= M_count[3] && G_count[4] <= M_count[4]) {
+            M_elm.innerHTML="(卒業可能)";
+          }
+        }
+      } else {
+        var no = 24 - total;
+        M_elm.innerHTML="(二年次進級まであと"+no+"単位)";
+      }
+    }
+
+
+
+
+    </script>
+
+
+  </head>
+  <body>
+    <!-- ヘッダー -->
+    <header>
+      <div class="container">
+        <div class="header-title">
+          <div id="top-btn" class="header-logo">Page TOP</div>
+        </div>
+        <div class="header-menu">
+          <ul class="header-menu-right">
+            <li>
+              <a href="#service_description">このサービスについて</a>
+            </li>
+            <li>
+              <a href="#search">単位計算サービス</a>
+            </li>
+            <li>
+              <a href="#contact">お問い合わせ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- トップ部分 -->
+    <div class="top-section gray-section">
+      <div class="top-inner">
+        <div class="container">
+          <div class="top-description">
+            <h2 class="title-fadeIn">単位計算サービス</h2>
+            <p class="title-fadeIn"><font color="#FFFFFF">愛工大生の便利を作るサービス<!--ここは統一にしましょう！--></font></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- サービス説明 -->
+    <div id="service_description" class="service-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>このサービスについて</h2>
+        </div>
+        <p>このページではユーザの皆様が単位取得した科目を選択し、選択した科目に基づき取得単位数を表示するサービスです．<br>
+          検索画面にて単位取得した講義を選択すると，取得単位数が表示されます．<br>
+          ユーザの皆様の取得単位数を確認してください．
+          <br>
+        </p>
+      </div>
+    </div>
+
+    <div id="search" class="search-section">
+      <div class="search-section-top gray-section">
+        <div class="container">
+          <div class="section-title">
+            <h3>単位計算サービス</h3>
+          </div>
+
+          <!--以下は僕のページの場合です！Stepで分けなくても大丈夫です！-->
+          <h3>表示する学年を選択する</h3>
+          <br><br>
+
+          <form name="myform2" action="tanni_app.html">
+            <script type="text/javascript">
+            for (var i=1; i <= 4; i++) {
+              document.writeln('<button type="button" id="click'+i+'">'+M_grade[i]+'</button>');
+            }
+            //document.writeln('<br><input type="button" value="確定" onclick="Ograde()" class="btn btn-contact2"/><br>');
+            </script>
+          </form>
+          <br><br><br>
+
+
+          <h3>単位取得した科目を選択する</h3>
+          <form name="myform" action="tanni_app.html">
+          <div name = "P_table">
+          </div>
+            <script type="text/javascript">
+
+            function Ograde(){
+              for (var l = 0; l < 5; l++) {
+                for (var j = 0; j < 4; j++) {
+                  for (var k = 0; k < CS_name[l][j]; k++) {
+                    document.getElementById(G_id[j+1]+k+","+l).className = "table_row"+j+"";
+                    if (myform2.grade[j].checked == false) {
+                      document.getElementById(G_id[j+1]+k+","+l).className = "none";
+                      //document.myform.elements[F_cbox[l][j][k]].checked = false；
+                    }
+                  }
+                }
+              }
+            }
+
+
+            putTable();
+
+            function putTable(){
+
+            var n = 0;
+            var C_name;
+            for (var t = 0; t <= 4; t++){
+              var p;
+              p=t;
+              if (t!=3) {
+                if (t==2) p++;
+                document.writeln('<div id = "hoverp'+t+'"><button type="button" id = "hide'+t+'">'+M_type[p]+'</button><a class="fukidashi'+t+'">クリックで開閉</a></div> <div > <table border ="1" align = center >');
+                document.writeln('');
+                document.writeln('<tr class="table-row'+4+"1"+t+'"><td width = "44">学年</td><td width = "32">選択</td><td height="2">科目</td></tr>');
+                n++;
+              } else {
+                document.writeln('<table border ="1" align = center>');
+              }
+              for (var g = 0; g <= 4; g++) {
+                C_name=0;
+                  //document.writeln('<div id="'+G_id[(g+1)%5]+'" class="table-row">');
+
+                if (g_count(t,g)!=1) {
+                  document.writeln('<tr id="'+G_id[(g+1)%5]+C_name+","+t+'" class="table-row'+g+"1"+t+'"><td rowspan="'+g_count(t,g)+'" width = "44" style="padding: 0px;" >'+M_grade[(g+1)%5]+'</td></tr>');
+                  C_name++;
+                }
+                  if (t!=3) {
+                    for (var i = 0; i < M_class.length; i++) {
+
+                    //  M_class[i].list=-1;
+                      if(M_class[i].type == t && M_class[i].grade == (g+1)%5){
+                        document.writeln('<tr id="'+G_id[(g+1)%5]+C_name+","+t+'" class="table-row'+g+"1"+t+'"><td width = "32" style="padding: 0px;"><div class="table-cell'+g+"1"+t+'"><input type="checkbox" name="Moclass"/></div></td><td><div class="table-cell'+g+"1"+t+'">'+M_class[i].name+'</div></td></tr>');
+                        M_class[i].list=n;
+                        F_cbox[t][g][C_name] = n;
+                        n++;
+                        C_name++;
+                      }
+                      if (t==2) {
+                        if(M_class[i].type == 3 && M_class[i].grade == (g+1)%5){
+                          document.writeln('<tr id="'+G_id[(g+1)%5]+C_name+","+t+'" class="table-row'+g+"1"+t+'"><td width = "32" style="padding: 0px;"><div class="table-cell'+g+"1"+t+'"><input type="checkbox" name="Moclass"/></div></td><td ><div class="table-cell'+g+"1"+t+'">'+M_class[i].name+'</div></td></tr>');
+                          M_class[i].list=n;
+                          F_cbox[t][g][C_name] = n;
+                          n++;
+                          C_name++;
+                        }
+                      }
+                    }
+                  }
+
+                //document.writeln('</div>');
+                CS_name[t][g]=C_name;
+                }
+                if (t!=3) document.writeln('</table></div><br><br>');
+              }
+          }
+            </script>
+            <input type="button" value="確定" onclick="M_output()" class="btn-contact2"/><br>
+            <br><br><br>
+          </form>
+          <h3>あなたの単位数</h3>
+          <div class = "indata">
+            <div class = "data" align="center">
+              <br>
+              <div id="M_data5" ></div>
+              <div id="M_data6" ></div>
+               <br>
+              <div id="M_data0" ></div>
+              <div id="M_data1" ></div>
+              <div id="M_data3" ></div>
+              <div id="M_data2" ></div>
+              <div id="M_data4" ></div>
+
+
+            </div>
+            </div>
+          </div>
+          <!--<p><br><br><br></p>-->
+        <!--  <button type="button" onclick="location.replace('index.html');">Return</button>!-->
+        </div>
+      </div>
+        </div>
+
+    <!-- Contact -->
+    <div id="contact" class="contact-section gray-section">
+      <div class="contact-section-inner">
+        <div class="container">
+          <div class="section-title">
+            <h3>お問い合わせ</h3>
+          </div>
+          <div class="contact-form">
+            <h4>メッセージを送る</h4>
+            <form>
+              <div class="error-message"><p>エラーです</p></div>
+              <input type="text" name="name" placeholder="お名前" class="contact-name">
+              <input type="text" name="email" placeholder="メールアドレス" class="contact-email">
+              <textarea name="message" placeholder="メッセージ内容"></textarea>
+              <button type="submit" class="btn btn-contact">送信</button>
+            </form>
+          </div>
+          <div class="contact-about">
+            <h4>About Us</h4>
+            <p>私たちは皆様により良いキャンパスライフを送っていただくためのサービスを提供しています．
+              日常生活での何気ない面倒臭さ等が減り，皆様のストレス軽減に貢献できれば光栄です．<br>
+              使ってみた感想や，使い方に関することなど，気軽に左の送信フォームから送ることができます．
+            </p>
+            <h4>Address</h4>
+            <p>
+              <i class="fa fa-map-marker"></i>愛知県豊田市八草町八千草1247
+            </p>
+            <p>
+              <i clasks="fa fa-phone"></i>Phone: 0565-48-8121
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="follow-us">
+          <a href="https://www.facebook.com/" class="social-icon" target='_blank'>
+            <span class="fa fa-facebook"></span>
+          </a>
+        <a href="https://twitter.com/" class="social-icon" target='_blank'>
+            <span class="fa fa-twitter"></span>
+          </a>
+        </div>
+        <div class="copyright">©2018-
+          WebApplicationTeam
+        </div>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="script17116.js"></script>
+  </body>
+</html>
